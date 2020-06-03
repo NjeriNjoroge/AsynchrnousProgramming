@@ -21,11 +21,11 @@ final class PicsumApi {
         return
       }
 
-      guard let dogImagesList = try? JSONDecoder().decode([RandomImages].self, from: data) else {
+      guard let photoImagesList = try? JSONDecoder().decode([RandomImages].self, from: data) else {
         print("couldnt decode")
         return
       }
-      completion(dogImagesList)
+      completion(photoImagesList)
     }
     task.resume()
   }

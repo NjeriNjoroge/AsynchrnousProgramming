@@ -11,7 +11,7 @@ import UIKit
 class MainViewController: UIViewController {
   
   let tableView = UITableView()
-  var dogImgeUrls = [String]()
+  var photoImageUrls = [String]()
   var authorNames = [String]()
   
   override func viewDidLoad() {
@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
     
     let anonFunc = { (fetchedDogImages: [RandomImages]) in
       for all in fetchedDogImages {
-        self.dogImgeUrls.append(all.download_url)
+        self.photoImageUrls.append(all.download_url)
         self.authorNames.append(all.author)
       }
       DispatchQueue.main.async {
@@ -58,15 +58,15 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     return 1
   }
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return dogImgeUrls.count
+    return photoImageUrls.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! GalleryTableViewCell
 
-    let imageUrls = URL(string: dogImgeUrls[indexPath.row])!
-    
-    cell.photoImageView.loadImage(from: imageUrls)
+    if let imageUrls = URL(string: photoImageUrls[indexPath.row]) {
+      cell.photoImageView.loadImage(from: imageUrls)
+    }
 
     cell.authorTextLabel.text = authorNames[indexPath.row]
 

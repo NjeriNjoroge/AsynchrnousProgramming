@@ -13,6 +13,7 @@ class CustomImageView: UIImageView {
   let activityIndicator = UIActivityIndicatorView(style: .medium)
   
   func loadImage(from url: URL) {
+    image = nil
     addSpinner()
     guard let imageData = try? Data(contentsOf: url) else { return }
     let retreivedImage = UIImage(data:imageData)
@@ -32,10 +33,4 @@ class CustomImageView: UIImageView {
     ])
     activityIndicator.startAnimating()
   }
-  
-  func removeSpinner() {
-    activityIndicator.stopAnimating()
-    activityIndicator.removeFromSuperview()
-  }
-  
 }
