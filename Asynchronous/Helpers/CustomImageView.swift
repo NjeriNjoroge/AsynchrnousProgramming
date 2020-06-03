@@ -14,20 +14,13 @@ class CustomImageView: UIImageView {
   
   func loadImage(from url: URL) {
     addSpinner()
-    let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-      guard let data = data, let newImage = UIImage(data: data) else {
-        return
-      }
-      DispatchQueue.main.async {
-        self.image = newImage
-        self.activityIndicator.stopAnimating()
-      }
-    }
-    task.resume()
-//    guard let imageData = try? Data(contentsOf: url) else { return }
-//    let retreivedImage = UIImage(data:imageData)
+    guard let imageData = try? Data(contentsOf: url) else { return }
+    let retreivedImage = UIImage(data:imageData)
     
-
+    DispatchQueue.main.async {
+      self.image = retreivedImage
+      self.activityIndicator.stopAnimating()
+    }
   }
   
   func addSpinner() {
