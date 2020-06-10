@@ -20,16 +20,16 @@ class MainViewController: UIViewController {
     setupMainController()
     setupView()
     
-    let anonFunc = { (fetchedDogImages: [RandomImages]) in
+    let unsplashImages = { (fetchedDogImages: [Image]) in
       for all in fetchedDogImages {
-        self.photoImageUrls.append(all.download_url)
-        self.authorNames.append(all.author)
+        self.photoImageUrls.append(all.urls.small)
+        self.authorNames.append(all.user.name!)
       }
       DispatchQueue.main.async {
         self.tableView.reloadData()
       }
     }
-    PicsumApi.shared.fetchRandomImages(completion: anonFunc)
+    UnsplashApi.shared.fetchRandomImages(completion: unsplashImages)
     tableView.dataSource = self
   }
   
