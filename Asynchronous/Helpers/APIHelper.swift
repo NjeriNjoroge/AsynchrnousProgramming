@@ -24,7 +24,9 @@ final class UnsplashApi {
       
       do {
         let image = try JSONDecoder().decode([Image].self, from: data)
+       DispatchQueue.main.async {
           completion(image)
+        }
       } catch {
         print("fetchRandomImages: \(error)")
       }
